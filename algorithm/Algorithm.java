@@ -19,7 +19,9 @@ public class Algorithm {
 
     public static void main(String[] args) {
 
-        BasicAlgorithm.MinStack.demo();
+//        BasicAlgorithm.MinStack.demo();
+
+        BasicAlgorithm.BiggestChildArray.demo();
     }
 
 

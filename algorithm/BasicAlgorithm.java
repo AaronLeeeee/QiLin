@@ -82,4 +82,49 @@ public class BasicAlgorithm {
             Algorithm.Utils.pln(minStack.minValue());
         }
     }
+
+
+    /**
+     * 思路：
+     * 1）遍历所有子数组，并逐个计算。(所有数组个数 Cn1 + Cn2 + Cn3 + Cnn -- O(n2）加上对每个数组求和 O(n2*n) = O(n3)
+     * 2）当前子数组和一旦为负，则重新计算
+     *
+     * 例如输入的数组为1, -2, 3, 10, -4, 7, 2, -5，和最大的子数组为3, 10, -4, 7, 2，因此输出为该子数组的和18。
+     */
+
+    static class BiggestChildArray {
+
+        int maxSumOfChildArray(final int[] dataArray) {
+            assert (dataArray == null);
+            assert (dataArray.length == 0);
+
+
+            int maxSum = Integer.MIN_VALUE;
+            int currentArraySum = 0;
+
+            for (int element : dataArray) {
+                currentArraySum += element;
+
+                // 记录上一次最大和
+                if (maxSum <= currentArraySum) {
+                    maxSum = currentArraySum;
+                }
+
+                if (currentArraySum < 0) {
+                    currentArraySum = 0;
+                }
+            }
+
+            return maxSum;
+        }
+
+        static void demo() {
+
+            BiggestChildArray childArray = new BiggestChildArray();
+            int sampleData1[] = {1, -2, 3, 10, -4 ,7, 2, -5};
+            int sampleData2[] = {-1, 1, -2, -3};
+
+            Algorithm.Utils.pln(childArray.maxSumOfChildArray(sampleData2));
+        }
+    }
 }
