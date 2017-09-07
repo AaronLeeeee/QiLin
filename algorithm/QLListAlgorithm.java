@@ -79,11 +79,4 @@ public class QLListAlgorithm {
             Algorithm.Utils.pln(kInBackwards.findTheKthElementInBackwards(qlLists.get(0), 2));
         }
     }
-
-
-
-
-
-
-
 }

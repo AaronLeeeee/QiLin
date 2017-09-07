@@ -25,7 +25,11 @@ public class Algorithm {
 
 //        QLStringAlgorithm.Reverse.demo();
 
-            QLListAlgorithm.KInBackwards.demo();
+//            QLListAlgorithm.KInBackwards.demo();
+
+//            BasicAlgorithm.Find2NumberWithSum.demo();
+            QLStringAlgorithm.AppearOnce.demo();
+
     }
 
 

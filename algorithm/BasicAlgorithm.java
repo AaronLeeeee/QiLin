@@ -1,5 +1,7 @@
 package algorithm;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -132,6 +134,64 @@ public class BasicAlgorithm {
             int sampleData2[] = {-1, 1, -2, -3};
 
             Algorithm.Utils.pln(childArray.maxSumOfChildArray(sampleData2));
+        }
+    }
+
+
+    /**
+     * 输入一个已经按升序排序过的数组和一个数字，在数组中查找两个数，使得它们的和正好是输入的那个数字。要求时间复杂度是O(n)。如果有多对数字的和等于输入的数字，输出任意一对即可
+     *
+     * 思路1：如果我们不考虑时间复杂度，最简单想法的莫过去先在数组中固定一个数字，再依次判断数组中剩下的n-1个数字与它的和是不是等于输入的数字。可惜这种思路需要的时间复杂度是O(n2)。
+     *
+     * 思路2：双向遍历，由于升序，因此如果加起来的和 < 给定值，则左侧index右移，否则右侧index左移
+     *
+     * 例如输入数组1、2、4、7、11、15和数字15。由于4+11=15，因此输出4和11。
+     *
+     */
+
+    static class Find2NumberWithSum {
+
+        final ArrayList<Integer> findExact2Numbers(final int[] dataArray, final int targetValue) {
+            if (dataArray == null) {
+                return null;
+            }
+
+            if (dataArray.length == 0) {
+                return null;
+            }
+
+
+            int leftIndex = 0;
+            int rightIndex = dataArray.length - 1;
+
+            ArrayList<Integer> resultList = new ArrayList<>();
+
+            while (leftIndex <= rightIndex) {
+                int smallerOne = dataArray[leftIndex];
+                int biggerOne = dataArray[rightIndex];
+
+                int addSum = smallerOne + biggerOne;
+                if (addSum == targetValue) {
+                    resultList.add(smallerOne);
+                    resultList.add(biggerOne);
+                    break;
+                }else if (addSum > targetValue) {
+                    rightIndex --;
+                }else {
+                    leftIndex ++;
+                }
+            }
+
+            return resultList;
+        }
+
+
+        static void demo() {
+
+            Find2NumberWithSum find2NumberWithSum = new Find2NumberWithSum();
+            int[] sampleDataArray = {1, 2, 4, 7, 11, 15};
+            ArrayList resultList = find2NumberWithSum.findExact2Numbers(sampleDataArray, 15);
+            Algorithm.Utils.pln(resultList);
         }
     }
 }
