@@ -21,7 +21,11 @@ public class Algorithm {
 
 //        BasicAlgorithm.MinStack.demo();
 
-        BasicAlgorithm.BiggestChildArray.demo();
+//        BasicAlgorithm.BiggestChildArray.demo();
+
+//        QLStringAlgorithm.Reverse.demo();
+
+            QLListAlgorithm.KInBackwards.demo();
     }
 
 

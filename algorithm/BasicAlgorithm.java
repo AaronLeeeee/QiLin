@@ -3,7 +3,7 @@ package algorithm;
 import java.util.Stack;
 
 /**
- * Created by jingli on 2017/9/7.
+ * Created by AaronLee on 2017/9/7.
  */
 public class BasicAlgorithm {
 
@@ -85,6 +85,9 @@ public class BasicAlgorithm {
 
 
     /**
+     * 题目：
+     * 输入一个整形数组，数组里有正数也有负数。数组中连续的一个或多个整数组成一个子数组，每个子数组都有一个和。求所有子数组的和的最大值。要求时间复杂度为O(n)。
+     *
      * 思路：
      * 1）遍历所有子数组，并逐个计算。(所有数组个数 Cn1 + Cn2 + Cn3 + Cnn -- O(n2）加上对每个数组求和 O(n2*n) = O(n3)
      * 2）当前子数组和一旦为负，则重新计算
@@ -94,10 +97,14 @@ public class BasicAlgorithm {
 
     static class BiggestChildArray {
 
-        int maxSumOfChildArray(final int[] dataArray) {
-            assert (dataArray == null);
-            assert (dataArray.length == 0);
+        final int maxSumOfChildArray(final int[] dataArray) {
+            if (dataArray == null) {
+                throw new IllegalArgumentException("dataArray is null");
+            }
 
+            if (dataArray.length == 0) {
+                throw new IllegalArgumentException("dataArray length is zero");
+            }
 
             int maxSum = Integer.MIN_VALUE;
             int currentArraySum = 0;
