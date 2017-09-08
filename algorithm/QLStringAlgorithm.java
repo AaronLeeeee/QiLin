@@ -206,5 +206,99 @@ public class QLStringAlgorithm {
     }
 
 
+    /**
+     * 定义字符串的左旋转操作：把字符串前面的若干个字符移动到字符串的尾部。如把字符串abcdef左旋转2位得到字符串cdefab。请实现字符串左旋转的函数。要求时间对长度为n的字符串操作的复杂度为O(n)，辅助内存为O(1)。
+     */
+    static final class LeftRotation {
 
+
+        final String leftRotate(final String inputString, final int n) {
+            if (inputString == null) {
+                return null;
+            }
+
+            String leftPartString = inputString.substring(0, n);
+            String rightString = inputString.substring(n);
+
+            leftPartString = new StringBuffer(leftPartString).reverse().toString();
+            rightString = new StringBuffer(rightString).reverse().toString();
+
+            return new StringBuffer(leftPartString + rightString).reverse().toString();
+
+        }
+
+
+
+        static void demo() {
+            LeftRotation leftRotation = new LeftRotation();
+            Algorithm.Utils.pln(leftRotation.leftRotate("abcdef", 2));
+        }
+    }
+
+
+    /**
+     * 输入一个整数，求该整数的二进制表达中有多少个1。例如输入10，由于其二进制表示为1010，有两个1，因此输出2
+     */
+    static final class BitCounts {
+
+        final int getBitCounts(int n) {
+            int count = 0;
+
+            while (n != 0) {
+
+                if ((n & 1) == 1) {
+                    count ++;
+                }
+
+                n >>= 1;
+            }
+
+            return count;
+        }
+
+        static void demo() {
+            BitCounts bitCounts = new BitCounts();
+            Algorithm.Utils.pln(bitCounts.getBitCounts(100));
+        }
+
+    }
+
+
+
+
+    /**
+     *
+     * (可能越界）
+     * O(n)
+     * 一个台阶总共有n级，如果一次可以跳1级，也可以跳2级。求总共有多少总跳法，并分析算法的时间复杂度。
+     *
+     * f(1) = 1
+     * f(2) = 2
+     *
+     * //时间复杂度
+     * f(n) = f(n-1) + f(n-2)
+     */
+    static final class Steps {
+
+        final int getSteps(final int n) {
+
+            int f1 = 1;
+            int f2 = 2;
+            int result = 0;
+
+            for(int i = 2; i < n; i++) {
+                result = (f1 + f2);
+                f1 = f2;
+                f2 = result;
+            }
+
+            return result;
+        }
+
+
+        static void demo() {
+            Steps steps = new Steps();
+            Algorithm.Utils.pln(steps.getSteps(10));
+        }
+    }
 }

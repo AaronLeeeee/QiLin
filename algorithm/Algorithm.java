@@ -38,7 +38,13 @@ public class Algorithm {
 
 //        QLListAlgorithm.ReverseList.demo();
 
-        QLStringAlgorithm.LongestCommonSubsequence.demo();
+//        QLStringAlgorithm.LongestCommonSubsequence.demo();
+
+//        QLStringAlgorithm.LeftRotation.demo();
+
+//        QLStringAlgorithm.BitCounts.demo();
+//        QLStringAlgorithm.Steps.demo();
+
     }
 
 
