@@ -1,13 +1,12 @@
 package algorithm;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 /**
  * Created by AaronLee on 2017/9/7.
  */
-public class BasicAlgorithm {
+public class QLBasicAlgorithm {
 
 
     /**
@@ -67,7 +66,7 @@ public class BasicAlgorithm {
 
 
         static void demo() {
-            BasicAlgorithm.MinStack<Integer> minStack = new BasicAlgorithm.MinStack<>();
+            QLBasicAlgorithm.MinStack<Integer> minStack = new QLBasicAlgorithm.MinStack<>();
             minStack.push(3);
             Algorithm.Utils.pln(minStack.minValue());
 
@@ -193,5 +192,107 @@ public class BasicAlgorithm {
             ArrayList resultList = find2NumberWithSum.findExact2Numbers(sampleDataArray, 15);
             Algorithm.Utils.pln(resultList);
         }
+    }
+
+
+    /**
+     * n个数字（0,1,…,n-1）形成一个圆圈，从数字0开始，每次从这个圆圈中删除第m个数字（第一个为当前数字本身，第二个为当前数字的下一个数字）。当一个数字删除后，从被删除数字的下一个继续删除第m个数字。求出在这个圆圈中剩下的最后一个数字。
+     *
+     * 思路:
+     * 1）如果使用链表则时间复杂度为 每次删除均需遍历 m 步，则整体时间复杂度为 O(mn)
+     * 2）时间复杂度为 O(n)
+     *
+     * 0, 1, 2, ... ,m-1, m, m+1, ... , n-1  f(n)  删掉第m个数字后
+     *
+     * 0, 1, 2, ..., m, m+1, ..., n-1 => m, m+1, ..., n-1, 0, 1, 2, ..., m-2 => 0, 1, 2, n-2    x = (x1 + m) % n  f(n-1)
+     *
+     * f(n) = (f(n-1) + m)%n
+     *
+     * f(0) = 0
+     *
+     */
+    static class RemainNumber {
+
+        final int getRemainingNumber(final int n, final int m) {
+
+            if (n <= 1) {
+                return 0;
+            }
+
+
+            int result = 0;
+
+            for (int i = 2; i <= n; i++) {
+                result = (result + m) % i;
+            }
+
+            return result;
+
+        }
+
+        final static void demo() {
+            RemainNumber remainNumber = new RemainNumber();
+            Algorithm.Utils.pln(remainNumber.getRemainingNumber(10, 3));
+        }
+
+    }
+
+
+    /**
+     *
+     * 定义Fibonacci数列如下：
+         /      0                      n=0
+     f(n)=      1                      n=1
+         \      f(n-1)+f(n-2)          n=2
+     *
+     *
+     *
+     *
+     * 问题
+     *
+     *           f(10)
+                /     \
+            f(9)      f(8)
+             / \       / \
+        f(8)   f(7)  f(7) f(6)
+        /   \   /  \
+     f(7)  f(6)f(6)f(5)
+     *
+     *
+     *
+     */
+    static class Fibonacci {
+
+        final int calc(final int n) {
+            if (n == 0) {
+                return 0;
+            }
+
+            if (n == 1) {
+                return 1;
+            }
+
+
+
+            int f0 = 0;
+            int f1 = 1;
+            int fn = 0;
+
+            for (int i=2; i < n; i++) {
+                fn = f0 + f1;
+                f0 = f1;
+                f1 = fn;
+            }
+
+            return fn;
+        }
+
+
+        static void demo() {
+
+            Fibonacci fibonacci = new Fibonacci();
+            Algorithm.Utils.pln(fibonacci.calc(10));
+        }
+
     }
 }

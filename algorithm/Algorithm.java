@@ -19,18 +19,28 @@ public class Algorithm {
 
     public static void main(String[] args) {
 
-//        BasicAlgorithm.MinStack.demo();
+//        QLBasicAlgorithm.MinStack.demo();
 
-//        BasicAlgorithm.BiggestChildArray.demo();
+//        QLBasicAlgorithm.BiggestChildArray.demo();
 
 //        QLStringAlgorithm.Reverse.demo();
 
 //            QLListAlgorithm.KInBackwards.demo();
 
-//            BasicAlgorithm.Find2NumberWithSum.demo();
-            QLStringAlgorithm.AppearOnce.demo();
+//            QLBasicAlgorithm.Find2NumberWithSum.demo();
+//            QLStringAlgorithm.AppearOnce.demo();
 
+//        QLBasicAlgorithm.RemainNumber.demo();
+
+//        QLBasicAlgorithm.Fibonacci.demo();
+
+//        QLStringAlgorithm.StringToInt.demo();
+
+//        QLListAlgorithm.ReverseList.demo();
+
+        QLStringAlgorithm.LongestCommonSubsequence.demo();
     }
+
 
 
 
