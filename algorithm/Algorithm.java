@@ -43,9 +43,20 @@ public class Algorithm {
 //        QLStringAlgorithm.LeftRotation.demo();
 
 //        QLStringAlgorithm.BitCounts.demo();
-//        QLStringAlgorithm.Steps.demo();
+//        QLStringAlgorithm.Steps.demo();'
 
+//        QLBasicAlgorithm.ContinuousSequence.demo();
+
+//        QLBasicAlgorithm.StringPermutation.demo();
+//        QLBasicAlgorithm.ReplaceEvenOddArray.demo();
+
+//        QLBasicAlgorithm.FindUnig2Numbers.demo();
+
+//        QLListAlgorithm.FirstCommonNode.demo();
+
+        QLStringAlgorithm.RemoveStringTable.demo();
     }
+
 
 
 

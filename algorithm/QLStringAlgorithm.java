@@ -301,4 +301,44 @@ public class QLStringAlgorithm {
             Algorithm.Utils.pln(steps.getSteps(10));
         }
     }
+
+
+    /**
+     *
+     * 输入两个字符串，从第一字符串中删除第二个字符串中所有的字符。例如，输入”They are students.”和”aeiou”，则删除之后的第一个字符串变成”Thy r stdnts.”
+     *
+     *
+     */
+    static final class RemoveStringTable {
+
+        final String removeTargetStringTable(final String inputString, final char[] charTable) {
+            if (inputString == null) {
+                return null;
+            }
+
+            int[] indexTables = new int[256];
+
+            for (int i = 0; i < charTable.length; i++) {
+                indexTables[charTable[i]] = 1;
+            }
+
+
+            String result = "";
+            for (int i = 0; i < inputString.length(); i++) {
+                char c = inputString.charAt(i);
+                if (indexTables[(int)c] != 1) {
+                    result += c;
+                }
+            }
+
+            return result;
+        }
+
+
+        static void demo() {
+
+            RemoveStringTable removeStringTable = new RemoveStringTable();
+            Algorithm.Utils.pln(removeStringTable.removeTargetStringTable("They are students.", new char[]{'a', 'e', 'i', 'o', 'u'}));
+        }
+    }
 }

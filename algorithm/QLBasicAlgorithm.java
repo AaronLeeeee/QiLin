@@ -297,9 +297,205 @@ public class QLBasicAlgorithm {
     }
 
 
+    /**
+     *  输入一个正数n，输出所有和为n连续正数序列。
+
+        例如输入15，由于1+2+3+4+5=4+5+6=7+8=15，所以输出3个连续序列1-5、4-6和7-8。
+
+        思路：p1 p2 分别指向第1、2个元素，若p1 + p2 < n，则p2向右移动，否则p1向右移动，直到p1 到达 (n + 1) / 2
+
+        p1 移动是做减法，p2 移动是做加法
+     */
+    static final class ContinuousSequence {
+        void findContinuousSequence(final int n) {
+
+           int p1 = 1;
+           int p2 = 2;
+
+           if (n < p1 + p2) {
+               throw new IllegalArgumentException("无可用数组序列");
+           }
+
+           int guard = (n + 1) / 2;
+
+           while (p1 < guard) {
+
+               int tempSum = sum(p1, p2);
+               if (tempSum < n) {
+                   p2++;
+               }else if(tempSum > n) {
+                   p1++;
+               }else {
+                   Algorithm.Utils.pln("****************************************");
+                   for (int i = p1; i <= p2; i++) {
+                       Algorithm.Utils.pln(i);
+                   }
+                   p2++;
+               }
+           }
+        }
+
+        final int sum(final int start, final int end) {
+            int sum = 0;
+            for (int i = start; i <= end; i++) {
+                sum += i;
+            }
+            return sum;
+        }
+
+
+        static void demo() {
+            new ContinuousSequence().findContinuousSequence(15);
+        }
+    }
+
+
+    /**
+     * 输入一个字符串，打印出该字符串中字符的所有排列。例如输入字符串abc，则输出由字符a、b、c所能排列出来的所有字符串abc、acb、bac、bca、cab和cba。
+     */
+    static final class StringPermutation {
+
+        void permutation(final String prefix, final String inputString) {
+            if (inputString.length() < 1) {
+                return;
+            }
+
+            for (int i = 0; i < inputString.length(); i ++) {
+                String newString = inputString;
+
+                if (i != 0) {
+                    String leftPart = inputString.substring(1, i);
+                    String rightPart = inputString.substring(i + 1);
+                    newString = inputString.charAt(i) +leftPart + inputString.charAt(0) + rightPart;
+                    Algorithm.Utils.pln(prefix + newString);
+                }
+
+                permutation(prefix + inputString.charAt(i), newString.substring(1));
+            }
+
+        }
+
+
+        static void demo() {
+            Algorithm.Utils.pln("abcd");
+            new StringPermutation().permutation("", "abcd");
+        }
+    }
 
 
 
-    
 
+    /**
+     * 输入一个整数数组，调整数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。要求时间复杂度为O(n)
+     */
+    static final class ReplaceEvenOddArray {
+
+        int[] reorder(int[] dataArray) {
+            int oddIndex = 0;
+            int evenIndex = dataArray.length - 1;
+
+
+            while (oddIndex <= evenIndex) {
+                int oddIndexValue = dataArray[oddIndex];
+                int evenIndexValue = dataArray[evenIndex];
+
+                if (oddIndexValue % 2 == 1) {
+                    oddIndex ++;
+                    continue;
+                }
+
+                if (evenIndexValue % 2 == 0) {
+                    evenIndex --;
+                    continue;
+                }
+
+                // Swap
+                int temp = oddIndexValue;
+                dataArray[oddIndex] = evenIndexValue;
+                dataArray[evenIndex] = temp;
+
+                oddIndex ++;
+                evenIndex --;
+
+            }
+
+            return dataArray;
+        }
+
+
+        static void demo() {
+            int []result = new ReplaceEvenOddArray().reorder(new int[] {1, 4, 3, 2, 5, 7, 6});
+            for (int i = 0; i < result.length; i ++) {
+                Algorithm.Utils.pln(result[i]);
+            }
+        }
+    }
+
+
+    /**
+     * 一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。
+     *
+     * 思路:
+     * 我们还是从头到尾依次异或数组中的每一个数字，那么最终得到的结果就是两个只出现一次的数字的异或结果。因为其他数字都出现了两次，在异或中全部抵消掉了。由于这两个数字肯定不一样，那么这个异或结果肯定不为0，也就是说在这个结果数字的二进制表示中至少就有一位为1。我们在结果数字中找到第一个为1的位的位置，记为第N位。现在我们以第N位是不是1为标准把原数组中的数字分成两个子数组，第一个子数组中每个数字的第N位都为1，而第二个子数组的每个数字的第N位都为0。
+     */
+    static final class FindUnig2Numbers {
+
+        final int[] findUniqNumbers(final int[] inputDataArray) {
+
+            if (inputDataArray.length <2) {
+                throw new IllegalArgumentException("输入数组长度不够");
+            }
+
+            int sum = inputDataArray[0];
+            for (int i = 1; i < inputDataArray.length; i++) {
+                sum ^= inputDataArray[i];
+            }
+
+            int indexOfFirstNonZero = 0;
+            while ((sum & 1) == 0) {
+                sum >>= 1;
+                indexOfFirstNonZero++;
+            }
+
+            ArrayList<Integer> array1 = new ArrayList<>();
+            ArrayList<Integer> array2 = new ArrayList<>();
+
+            for (int i : inputDataArray) {
+                if (isBitNOne(i, indexOfFirstNonZero)) {
+                    array1.add(i);
+                }else {
+                    array2.add(i);
+                }
+            }
+
+
+            int value1 = 0;
+            for (int v1 : array1) {
+                value1 ^= v1;
+            }
+
+            int value2 = 0;
+            for (int v2: array2) {
+                value2 ^= v2;
+            }
+
+
+            return new int[] {value1, value2};
+        }
+
+
+        final boolean isBitNOne(int value, int n) {
+            return ((value >> n) & 1) == 1;
+        }
+
+
+        static void demo() {
+
+            int[] dataArray = new FindUnig2Numbers().findUniqNumbers(new int[]{2, 2, 6, 3, 4, 4, 5, 5});
+            for (int i : dataArray) {
+                Algorithm.Utils.pln(i);
+            }
+        }
+
+    }
 }
