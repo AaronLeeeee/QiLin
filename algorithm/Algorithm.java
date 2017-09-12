@@ -54,7 +54,17 @@ public class Algorithm {
 
 //        QLListAlgorithm.FirstCommonNode.demo();
 
-        QLStringAlgorithm.RemoveStringTable.demo();
+//        QLStringAlgorithm.RemoveStringTable.demo();
+
+//        QLBasicAlgorithm.RotationReorder.demo();
+
+//        QLStringAlgorithm.SymmetricalString.demo();
+
+//        QLBasicAlgorithm.MoreThanHalf.demo();
+
+//        QLBasicAlgorithm.SpecialAdd.demo();
+
+        QLBasicAlgorithm.AgeHistorgram.demo();
     }
 
 

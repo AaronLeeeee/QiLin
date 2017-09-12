@@ -1,6 +1,5 @@
 package algorithm;
 
-import java.util.HashMap;
 
 /**
  * Created by AaronLee on 2017/9/7.
@@ -339,6 +338,58 @@ public class QLStringAlgorithm {
 
             RemoveStringTable removeStringTable = new RemoveStringTable();
             Algorithm.Utils.pln(removeStringTable.removeTargetStringTable("They are students.", new char[]{'a', 'e', 'i', 'o', 'u'}));
+        }
+    }
+
+
+    /**
+     * 输入一个字符串，输出该字符串中对称的子字符串的最大长度。比如输入字符串“google”，由于该字符串里最长的对称子字符串是“goog”，因此输出4。
+     */
+    static final class SymmetricalString {
+
+        final int theLength(final String inputString) {
+            if (inputString == null) {
+                return -1;
+            }
+
+            if (inputString.length() == 0) {
+                return -1;
+            }
+
+            int length = 0;
+            for (int i = 0; i < inputString.length(); i++) {
+
+                int tempLength = 1;
+                int currentIndex = i;
+                int delta = 1;
+                while (true) {
+
+                    if ((currentIndex - delta >= 0) && (currentIndex + delta <= inputString.length() - 1)) {
+                        char leftC = inputString.charAt(currentIndex - delta);
+                        char rightC = inputString.charAt(currentIndex + delta);
+
+                        if (leftC == rightC) {
+                            delta ++;
+                            tempLength += 2;
+                            continue;
+                        }else {
+                            length = Math.max(length, tempLength);
+                            break;
+                        }
+                    }else {
+                        length = Math.max(length, tempLength);
+                        break;
+                    }
+                }
+            }
+            return length;
+        }
+
+
+        static void demo() {
+            SymmetricalString symmetricalString = new SymmetricalString();
+            Algorithm.Utils.pln(symmetricalString.theLength("aabcdcbefio1234567k76543210"));
+
         }
     }
 }

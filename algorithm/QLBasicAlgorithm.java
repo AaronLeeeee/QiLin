@@ -1,6 +1,7 @@
 package algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 
 /**
@@ -495,6 +496,228 @@ public class QLBasicAlgorithm {
             for (int i : dataArray) {
                 Algorithm.Utils.pln(i);
             }
+        }
+
+    }
+
+
+    /**
+     * 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个排好序的数组的一个旋转，输出旋转数组的最小元素。例如数组{3, 4, 5, 1, 2}为{1, 2, 3, 4, 5}的一个旋转，该数组的最小值为1。
+     *
+     *
+     * 思路:
+     *
+     * 首先我们用两个指针，分别指向数组的第一个元素和最后一个元素。按照题目旋转的规则，第一个元素应该是大于或者等于最后一个元素的（这其实不完全对，还有特例。后面再讨论特例）。
+     接着我们得到处在数组中间的元素。如果该中间元素位于前面的递增子数组，那么它应该大于或者等于第一个指针指向的元素。此时数组中最小的元素应该位于该中间元素的后面。我们可以把第一指针指向该中间元素，这样可以缩小寻找的范围。同样，如果中间元素位于后面的递增子数组，那么它应该小于或者等于第二个指针指向的元素。此时该数组中最小的元素应该位于该中间元素的前面。我们可以把第二个指针指向该中间元素，这样同样可以缩小寻找的范围。我们接着再用更新之后的两个指针，去得到和比较新的中间元素，循环下去。
+     */
+    static final class RotationReorder {
+
+        int minValue(final int[] inputArray) {
+            if (inputArray == null) {
+                throw new IllegalArgumentException("输入为空");
+            }
+
+            if (inputArray.length <= 0) {
+                throw new IllegalArgumentException("输入为空");
+            }
+
+            if (inputArray.length == 1) {
+                return inputArray[0];
+            }
+
+            if (inputArray.length == 2) {
+                return Math.min(inputArray[0], inputArray[1]);
+            }
+
+            // 2分查找 一个数，左边，右边都大于他。
+
+            int midIndex = inputArray.length / 2;
+            int left = Integer.MIN_VALUE;
+            int right = Integer.MIN_VALUE;
+
+            if (midIndex - 1 >= 0) {
+                left = inputArray[midIndex - 1];
+            }
+
+            if (midIndex + 1 <= (inputArray.length - 1)) {
+                right = inputArray[midIndex + 1];
+            }
+
+            int targetValue = inputArray[midIndex];
+
+            if (targetValue <= left && targetValue <= right ) {
+                return targetValue;
+            }else if (targetValue >= inputArray[0]) {
+                // 此时最小元素处于后半队列
+                int[] dstArray = new int[inputArray.length - (midIndex)];
+                System.arraycopy(inputArray, midIndex, dstArray, 0, dstArray.length);
+                return minValue(dstArray);
+            }else if (targetValue <= inputArray[inputArray.length - 1]) {
+                // 此时最小元素处于前半段
+                int[] dstArray = new int[midIndex + 1];
+                System.arraycopy(inputArray, 0, dstArray, 0, dstArray.length);
+                return minValue(dstArray);
+            }else {
+                throw new RuntimeException("Bug on");
+            }
+
+        }
+
+
+        static void demo() {
+
+            RotationReorder rr = new RotationReorder();
+            Algorithm.Utils.pln(rr.minValue(new int[] {
+                    3,4,1,2
+            }));
+        }
+    }
+
+
+    /**
+     * 单例
+     *
+     */
+
+    static final class SingletonDemo {
+
+        private static SingletonDemo instance = null;
+
+        public synchronized static final SingletonDemo getInstance() {
+            if (instance == null) {
+                instance = new SingletonDemo();
+            }
+            return instance;
+        }
+
+        private SingletonDemo() {
+
+        }
+    }
+
+
+    /**
+     * 数组中有一个数字出现的次数超过了数组长度的一半，找出这个数字
+     */
+
+    static final class MoreThanHalf {
+
+
+        int findNumberAppearMoreThanHalf(final int[] dataArray) {
+            if (dataArray == null) {
+                throw new IllegalArgumentException("输入为空");
+            }
+
+            if (dataArray.length <= 2) {
+                throw new IllegalArgumentException("输入太少");
+            }
+
+
+            int accumulateTimes = 0;
+            int number = Integer.MIN_VALUE;
+
+            for (int i = 0; i < dataArray.length; i++) {
+                int currentValue = dataArray[i];
+
+                if (accumulateTimes == 0) {
+                    accumulateTimes ++;
+                    number = currentValue;
+                    continue;
+                }
+
+
+                if (currentValue == number) {
+                    accumulateTimes ++;
+                }else {
+                    accumulateTimes --;
+                }
+            }
+
+            return number;
+
+        }
+
+
+        static void demo() {
+            MoreThanHalf moreThanHalf = new MoreThanHalf();
+            Algorithm.Utils.pln(moreThanHalf.findNumberAppearMoreThanHalf(new int[] {
+                   1, 3, 4, 3, 3
+            }));
+        }
+
+    }
+
+
+    /**
+     *
+     *  101 011
+     *  5 + 3 = 8
+     *
+     *  1) 110 + 10
+     *  2) 100 + 100
+     *  3) 000 + 1000
+     *  4) 1000 + 000
+     *  5) 1000 + 0 = 8
+     *
+     */
+
+    static final class SpecialAdd {
+
+        final int specialAdd(int num1, int num2) {
+
+            if (num1 == 0) {
+                return num2;
+            }
+
+            if (num2 == 0) {
+                return num1;
+            }
+
+
+            int sum = num1 ^ num2;
+            int carry = (num1 & num2) << 1;
+
+            return specialAdd(sum, carry);
+        }
+
+
+        static void demo() {
+            SpecialAdd specialAdd = new SpecialAdd();
+            Algorithm.Utils.pln(specialAdd.specialAdd(5, 3));
+        }
+
+
+
+
+    }
+
+
+    /**
+     *
+     * 某公司有几万名员工，请完成一个时间复杂度为O(n)的算法对该公司员工的年龄作排序，可使用O(1)的辅助空间
+     * 
+     */
+    static final class AgeHistorgram {
+
+
+        void doAgeCount(final int[] people) {
+            int[] ages = new int[99];
+            for (int i = 0; i < people.length; i ++) {
+                ages[people[i]] += 1;
+            }
+
+
+            for (int i = 0; i < ages.length; i++) {
+                if (ages[i] != 0) {
+                    Algorithm.Utils.pln(i + "岁出现了" + ages[i] + '次');
+                }
+            }
+        }
+
+        static void demo() {
+           new AgeHistorgram().doAgeCount(new int[] {
+                   20,  30 ,52 , 24, 32, 38, 19, 5
+           });
         }
 
     }
