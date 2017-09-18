@@ -366,7 +366,11 @@ public class QLBasicAlgorithm {
 
                 if (i != 0) {
                     String leftPart = inputString.substring(1, i);
-                    String rightPart = inputString.substring(i + 1);
+                    String rightPart = "";
+                    if (i + 1 < inputString.length()) {
+                        rightPart = inputString.substring(i + 1);
+                    }
+
                     newString = inputString.charAt(i) +leftPart + inputString.charAt(0) + rightPart;
                     Algorithm.Utils.pln(prefix + newString);
                 }
@@ -568,7 +572,7 @@ public class QLBasicAlgorithm {
 
             RotationReorder rr = new RotationReorder();
             Algorithm.Utils.pln(rr.minValue(new int[] {
-                    3,4,1,2
+                    4,1,2,3
             }));
         }
     }
@@ -695,7 +699,7 @@ public class QLBasicAlgorithm {
     /**
      *
      * 某公司有几万名员工，请完成一个时间复杂度为O(n)的算法对该公司员工的年龄作排序，可使用O(1)的辅助空间
-     * 
+     *
      */
     static final class AgeHistorgram {
 

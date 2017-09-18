@@ -191,8 +191,8 @@ public class QLStringAlgorithm {
 
         static void demo() {
             LongestCommonSubsequence lcs = new LongestCommonSubsequence();
-            String s1 = "AGGTAB";
-            String s2 = "GXTXAYB";
+            String s1 = "whosyourdaddy";
+            String s2 = "greedisgood";
 
             char[] X=s1.toCharArray();
             char[] Y=s2.toCharArray();

@@ -64,7 +64,11 @@ public class Algorithm {
 
 //        QLBasicAlgorithm.SpecialAdd.demo();
 
-        QLBasicAlgorithm.AgeHistorgram.demo();
+//        QLBasicAlgorithm.AgeHistorgram.demo();
+
+
+        QLBinaryTree.SumPath.demo();
+
     }
 
 
